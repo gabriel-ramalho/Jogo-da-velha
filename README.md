@@ -1,1 +1,2 @@
-# my-study
+## my-study 
+- [ ] - lesson 1

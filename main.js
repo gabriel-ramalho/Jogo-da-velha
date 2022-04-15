@@ -32,6 +32,42 @@ function renderizaTermino(){
     console.log("==================================================")
 }
 
+function casaFoiPreenchida(casa){
+    return casa.toLowerCase() === "x" || casa.toLowerCase() === "o"
+}
+
+function ehUmaJogadaRepetida(comandoDoJogador){
+    switch(Number(comandoDoJogador)){
+        case 1: { 
+            return casaFoiPreenchida(casa1)
+        }
+        case 2: { 
+            return casaFoiPreenchida(casa2)
+        }
+        case 3: { 
+            return casaFoiPreenchida(casa3)
+        }
+        case 4: { 
+            return casaFoiPreenchida(casa4)
+        }
+        case 5: { 
+            return casaFoiPreenchida(casa5)
+        }
+        case 6: { 
+            return casaFoiPreenchida(casa6)
+        }
+        case 7: { 
+            return casaFoiPreenchida(casa7)
+        }
+        case 8: { 
+            return casaFoiPreenchida(casa8)
+        }
+        case 9: { 
+            return casaFoiPreenchida(casa9)
+        }
+    }
+}
+
 function guardarComandoDoJogador(comandoDoJogador, simboloAtual){
     switch(Number(comandoDoJogador)){
         case 1: { 
@@ -121,12 +157,29 @@ function main(){
         // 5) Trocar o jogador
 
         renderizarTela()
+
+        if(avisos) {
+            console.log(avisos)
+            avisos = null
+        }
+
         const comandoDoJogador = lerComandoJogador(jogadorAtual) // na funcao o que importa eh a ordem que sao passados os parametros
 
         // Sair do jogo caso haja desistencia
         if (comandoDoJogador.toLowerCase() === "s") {
             console.log(`O ${jogadorAtual} desistiu, é um otário mermo.`)
             break
+        }
+
+        if (Number(comandoDoJogador) < 1 || Number(comandoDoJogador) > 9 || !Number(comandoDoJogador)){
+            avisos = `${jogadorAtual}, seu bucha, coloque um comando decente.`
+            continue // vai para o incio do looping
+        } 
+
+
+        if(ehUmaJogadaRepetida(comandoDoJogador)){
+            avisos = `${jogadorAtual}, seu imbecil, essa casa já foi preenchida.`
+            continue
         }
 
         // Logica do jogo
@@ -158,8 +211,3 @@ function main(){
 }
 
 main()
-
-
-// Next task
-// 1) Validar quando um jogador já escolheu uma das opções: avisar o jogador e permitir que ele jogue novamente.
-// 2) Validar se o que jogador escreveu é um comando válido. 
